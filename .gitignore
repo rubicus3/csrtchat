@@ -1,0 +1,5 @@
+.env
+.venv
+db/data
+.idea/
+__pycache__/

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход в Мессенджер</title>
+    <!-- Подключаем Bootstrap для быстрого стиля -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; display: flex; align-items: center; justify-content: center; height: 100vh; }
+        .auth-card { width: 100%; max-width: 400px; padding: 20px; border-radius: 10px; background: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+
+<div class="auth-card">
+    <h3 class="text-center mb-4">Вход</h3>
+
+    <!-- Блок для сообщений об ошибках (Flash messages) -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="">
+        {{ form.hidden_tag() }} <!-- CSRF токен -->
+
+        <div class="mb-3">
+            {{ form.email.label(class="form-label") }}
+            {% if form.email.errors %}
+                {{ form.email(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.email.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.email(class="form-control") }}
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.password.label(class="form-label") }}
+            {% if form.password.errors %}
+                {{ form.password(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.password.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.password(class="form-control") }}
+            {% endif %}
+        </div>
+
+        <div class="mb-3 form-check">
+            {{ form.remember_me(class="form-check-input") }}
+            {{ form.remember_me.label(class="form-check-label") }}
+        </div>
+
+        <div class="d-grid gap-2">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+
+    <div class="mt-3 text-center">
+        <small>Нет аккаунта? <a href="{{ url_for('auth.register') }}">Зарегистрироваться</a></small>
+    </div>
+</div>
+
+</body>
+</html>
