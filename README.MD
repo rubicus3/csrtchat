@@ -1,3 +1,11 @@
+Create .env file. Fill it with necessary variables
+
+```
+POSTGRES_USER=
+POSTGRES_PASSWORD=
+POSTGRES_DB=
+```
+
 Start postgresql via docker compose (Starts on default 5432 port)
 
 ```
